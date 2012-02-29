@@ -1,0 +1,9 @@
+This is GStreamer Good Plug-ins 0.11.1, "The Leper Affinity"
+
+New features in 0.11.1:
+
+      * Many cleanups
+      * Ported to new 0.11 core API changes
+      * v4l2 major improvements
+      * Ported network elements to GIO
+

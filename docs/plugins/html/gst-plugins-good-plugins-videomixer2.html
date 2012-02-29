@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>videomixer2</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="GStreamer Good Plugins 0.11 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gst-plugins-good Elements">
+<link rel="prev" href="gst-plugins-good-plugins-videomixer.html" title="videomixer">
+<link rel="next" href="gst-plugins-good-plugins-warptv.html" title="warptv">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-good-plugins-videomixer.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Good Plugins 0.11 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-good-plugins-warptv.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-good-plugins-videomixer2.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-videomixer2.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-videomixer2.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-videomixer2.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-videomixer2.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-good-plugins-videomixer2"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-good-plugins-videomixer2.top_of_page"></a>videomixer2</span></h2>
+<p>videomixer2</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-good-plugins-videomixer2.synopsis"></a><h2>Synopsis</h2>
+<a name="GstVideoMixer2"></a><pre class="synopsis">struct              <a class="link" href="gst-plugins-good-plugins-videomixer2.html#GstVideoMixer2-struct" title="struct GstVideoMixer2">GstVideoMixer2</a>;
+enum                <a class="link" href="gst-plugins-good-plugins-videomixer2.html#GstVideoMixer2Background" title="enum GstVideoMixer2Background">GstVideoMixer2Background</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-videomixer2.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----GInitiallyUnowned
+         +----GstObject
+               +----GstElement
+                     +----GstVideoMixer2
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-videomixer2.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GstVideoMixer2 implements
+ GstChildProxy.</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-videomixer2.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-good-plugins-videomixer2.html#GstVideoMixer2--background" title='The "background" property'>background</a>"               <a class="link" href="gst-plugins-good-plugins-videomixer2.html#GstVideoMixer2Background" title="enum GstVideoMixer2Background"><span class="type">GstVideoMixer2Background</span></a>  : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-videomixer2.description"></a><h2>Description</h2>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-videomixer2.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstVideoMixer2-struct"></a><h3>struct GstVideoMixer2</h3>
+<pre class="programlisting">struct GstVideoMixer2;</pre>
+<p>
+The opaque <a class="link" href="gst-plugins-good-plugins-videomixer2.html#GstVideoMixer2"><span class="type">GstVideoMixer2</span></a> structure.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstVideoMixer2Background"></a><h3>enum GstVideoMixer2Background</h3>
+<pre class="programlisting">typedef enum {
+  VIDEO_MIXER2_BACKGROUND_CHECKER,
+  VIDEO_MIXER2_BACKGROUND_BLACK,
+  VIDEO_MIXER2_BACKGROUND_WHITE,
+  VIDEO_MIXER2_BACKGROUND_TRANSPARENT,
+} GstVideoMixer2Background;
+</pre>
+<p>
+The different backgrounds videomixer can blend over.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="VIDEO-MIXER2-BACKGROUND-CHECKER:CAPS"></a><span class="term"><code class="literal">VIDEO_MIXER2_BACKGROUND_CHECKER</code></span></p></td>
+<td>checker pattern background
+</td>
+</tr>
+<tr>
+<td><p><a name="VIDEO-MIXER2-BACKGROUND-BLACK:CAPS"></a><span class="term"><code class="literal">VIDEO_MIXER2_BACKGROUND_BLACK</code></span></p></td>
+<td>solid color black background
+</td>
+</tr>
+<tr>
+<td><p><a name="VIDEO-MIXER2-BACKGROUND-WHITE:CAPS"></a><span class="term"><code class="literal">VIDEO_MIXER2_BACKGROUND_WHITE</code></span></p></td>
+<td>solid color white background
+</td>
+</tr>
+<tr>
+<td><p><a name="VIDEO-MIXER2-BACKGROUND-TRANSPARENT:CAPS"></a><span class="term"><code class="literal">VIDEO_MIXER2_BACKGROUND_TRANSPARENT</code></span></p></td>
+<td>background is left transparent and layers are composited using "A OVER B" composition rules. This is only applicable to AYUV and ARGB (and variants) as it preserves the alpha channel and allows for further mixing.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-videomixer2.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstVideoMixer2--background"></a><h3>The <code class="literal">"background"</code> property</h3>
+<pre class="programlisting">  "background"               <a class="link" href="gst-plugins-good-plugins-videomixer2.html#GstVideoMixer2Background" title="enum GstVideoMixer2Background"><span class="type">GstVideoMixer2Background</span></a>  : Read / Write</pre>
+<p>Background type.</p>
+<p>Default value: Checker pattern</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

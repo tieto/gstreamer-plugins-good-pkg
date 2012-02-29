@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>oss4sink</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="GStreamer Good Plugins 0.11 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gst-plugins-good Elements">
+<link rel="prev" href="gst-plugins-good-plugins-oss4mixer.html" title="oss4mixer">
+<link rel="next" href="gst-plugins-good-plugins-oss4src.html" title="oss4src">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-good-plugins-oss4mixer.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Good Plugins 0.11 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-good-plugins-oss4src.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-good-plugins-oss4sink.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-oss4sink.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-oss4sink.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-oss4sink.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-good-plugins-oss4sink"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-good-plugins-oss4sink.top_of_page"></a>oss4sink</span></h2>
+<p>oss4sink — Output to a sound card via OSS version 4</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-good-plugins-oss4sink.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">struct              <a class="link" href="gst-plugins-good-plugins-oss4sink.html#GstOss4Sink" title="struct GstOss4Sink">GstOss4Sink</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-oss4sink.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GstOss4Sink implements
+ GstStreamVolume and  GstPropertyProbe.</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-oss4sink.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-good-plugins-oss4sink.html#GstOss4Sink--device" title='The "device" property'>device</a>"                   <span class="type">gchar</span>*                : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-oss4sink.html#GstOss4Sink--device-name" title='The "device-name" property'>device-name</a>"              <span class="type">gchar</span>*                : Read
+  "<a class="link" href="gst-plugins-good-plugins-oss4sink.html#GstOss4Sink--mute" title='The "mute" property'>mute</a>"                     <span class="type">gboolean</span>              : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-oss4sink.html#GstOss4Sink--volume" title='The "volume" property'>volume</a>"                   <span class="type">gdouble</span>               : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-oss4sink.description"></a><h2>Description</h2>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp9709216"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gst-plugins-good-plugins-plugin-oss4.html#plugin-oss4">oss4</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Tim-Philipp Müller &lt;tim centricular net&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Sink/Audio</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp17246176"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>audio/x-alaw, rate=(int)[ 1, 192000 ], channels=(int)[ 1, 4096 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> audio/x-mulaw, rate=(int)[ 1, 192000 ], channels=(int)[ 1, 4096 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> audio/x-raw-int, width=(int)32, depth=(int)32, signed=(boolean)true, endianness=(int)1234, rate=(int)[ 1, 192000 ], channels=(int)[ 1, 4096 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> audio/x-raw-int, width=(int)32, depth=(int){ 32, 24 }, signed=(boolean)true, endianness=(int)4321, rate=(int)[ 1, 192000 ], channels=(int)[ 1, 4096 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> audio/x-raw-int, width=(int){ 32, 24 }, depth=(int)24, signed=(boolean)true, endianness=(int)1234, rate=(int)[ 1, 192000 ], channels=(int)[ 1, 4096 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> audio/x-raw-int, width=(int)16, depth=(int)16, signed=(boolean){ false, true }, endianness=(int){ 1234, 4321 }, rate=(int)[ 1, 192000 ], channels=(int)[ 1, 4096 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> audio/x-raw-int, width=(int)8, depth=(int)8, signed=(boolean){ true, false }, rate=(int)[ 1, 192000 ], channels=(int)[ 1, 4096 ]</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-oss4sink.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstOss4Sink"></a><h3>struct GstOss4Sink</h3>
+<pre class="programlisting">struct GstOss4Sink {
+  GstAudioSink  audio_sink;
+
+  gchar       * device;             /* NULL if none was set      */
+  gchar       * open_device;        /* the device we opened      */
+  gchar       * device_name;        /* set if the device is open */
+  gint          fd;                 /* -1 if not open            */
+  gint          bytes_per_sample;
+  gint          mute_volume;
+
+  GstCaps     * probed_caps;
+
+  GList       * property_probe_list;
+};
+</pre>
+<p>
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-oss4sink.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstOss4Sink--device"></a><h3>The <code class="literal">"device"</code> property</h3>
+<pre class="programlisting">  "device"                   <span class="type">gchar</span>*                : Read / Write</pre>
+<p>OSS4 device (e.g. /dev/oss/hdaudio0/pcm0 or /dev/dspN) (NULL = use first available playback device).</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstOss4Sink--device-name"></a><h3>The <code class="literal">"device-name"</code> property</h3>
+<pre class="programlisting">  "device-name"              <span class="type">gchar</span>*                : Read</pre>
+<p>Human-readable name of the sound device.</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstOss4Sink--mute"></a><h3>The <code class="literal">"mute"</code> property</h3>
+<pre class="programlisting">  "mute"                     <span class="type">gboolean</span>              : Read / Write</pre>
+<p>Mute state of this stream.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstOss4Sink--volume"></a><h3>The <code class="literal">"volume"</code> property</h3>
+<pre class="programlisting">  "volume"                   <span class="type">gdouble</span>               : Read / Write</pre>
+<p>Linear volume of this stream, 1.0=100%.</p>
+<p>Allowed values: [0,10]</p>
+<p>Default value: 1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>
