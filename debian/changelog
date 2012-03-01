@@ -1,3 +1,9 @@
+gst-plugins-good0.11 (0.11.1-1~ppa1) oneiric; urgency=low
+
+  * New upstream release, 0.11.1
+
+ -- Olivier Naudan <o-naudan@ti.com>  Thu, 01 Mar 2012 13:02:01 +0100
+
 gst-plugins-good0.10 (0.10.31-1) unstable; urgency=low
 
   * New upstream release, "Faster":

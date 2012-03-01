@@ -11,8 +11,8 @@ Standards-Version: 3.8.4
 Package: @GST_PKGNAME@-plugins-good-doc
 Architecture: all
 Section: doc
-Depends: gstreamer0.10-doc,
-         gstreamer0.10-plugins-base-doc,
+Depends: gstreamer@GST_ABI@-doc,
+         gstreamer@GST_ABI@-plugins-base-doc,
          ${misc:Depends}
 Description: GStreamer documentation for plugins from the "good" set
  GStreamer is a streaming media framework, based on graphs of filters
@@ -62,8 +62,6 @@ XB-GStreamer-URI-Sinks: ${gstreamer:URISinks}
 XB-GStreamer-Encoders: ${gstreamer:Encoders}
 XB-GStreamer-Decoders: ${gstreamer:Decoders}
 Provides: ${gstreamer:Provides}
-Replaces: gstreamer0.10-plugins-good (<< 0.10.30-2)
-Conflicts: gstreamer0.10-plugins-good (<< 0.10.30-2)
 Description: GStreamer plugin for getting the sink/source information from GConf
  GStreamer is a streaming media framework, based on graphs of filters
  which operate on media data.  Applications using this library can do
@@ -83,11 +81,9 @@ Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          @GST_PKGNAME@-pulseaudio | @GST_PKGNAME@-audiosink,
-         gstreamer0.10-plugins-base,
+         gstreamer@GST_ABI@-plugins-base,
          @GST_PKGNAME@-gconf
 Recommends: @GST_PKGNAME@-x
-Replaces: gstreamer0.10-plugins-bad (<< 0.10.21.2), gstreamer0.10-plugins-really-bad (<< 0.10.21.2), gstreamer0.10-plugins-good-doc (<< 0.10.6-2)
-Conflicts: gstreamer0.10-plugins-bad (<< 0.10.21.2), gstreamer0.10-plugins-really-bad (<< 0.10.21.2)
 XB-GStreamer-Version: ${gstreamer:Version}
 XB-GStreamer-Elements: ${gstreamer:Elements}
 XB-GStreamer-URI-Sources: ${gstreamer:URISources}
@@ -115,8 +111,6 @@ Depends: @GST_PKGNAME@-plugins-good (= ${binary:Version}),
          @GST_PKGNAME@-pulseaudio (= ${binary:Version}),
          @GST_PKGNAME@-gconf (= ${binary:Version}),
          ${misc:Depends}
-Replaces: gstreamer0.10-plugins-bad-dbg (<< 0.10.21.2)
-Conflicts: gstreamer0.10-plugins-bad-dbg (<< 0.10.21.2)
 Description: GStreamer plugins from the "good" set
  GStreamer is a streaming media framework, based on graphs of filters
  which operate on media data.  Applications using this library can do

@@ -1,4 +1,4 @@
-debian/tmp/usr/share/gstreamer-0.10/presets/
+debian/tmp/usr/share/gstreamer-@GST_ABI@/presets/
 @1394@
 debian/tmp/usr/lib/*/gstreamer-@GST_ABI@/libgstaasink.so
 debian/tmp/usr/lib/*/gstreamer-@GST_ABI@/libgstalaw.so
