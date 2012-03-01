@@ -1,0 +1,2 @@
+debian/tmp/etc/gconf/schemas/gstreamer-@GST_ABI@.schemas
+debian/tmp/usr/lib/*/gstreamer-@GST_ABI@/libgstgconfelements.so

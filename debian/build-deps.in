@@ -1,0 +1,43 @@
+@GST_LIB_DEV_DEP@
+@GST_EXTRA_BUILD_DEPENDS@
+libgstreamer-plugins-base0.10-dev (>= 0.10.36)
+autotools-dev
+dh-autoreconf
+automake (>= 1.10)
+autoconf (>= 2.60)
+libtool (>= 2.0)
+autopoint (>= 0.17)
+cdbs (>= 0.4.93)
+debhelper (>= 8.1.3)
+dpkg-dev (>= 1.15.1)
+pkg-config (>= 0.11.0)
+gtk-doc-tools
+gconf2
+libglib2.0-dev (>= 2.24)
+liborc-0.4-dev (>= 1:0.4.11)
+libcairo2-dev (>= 1.10.0)
+libcaca-dev
+libspeex-dev (>= 1.1.6)
+libpng12-dev
+libshout3-dev
+libjpeg-dev
+libaa1-dev (>= 1.4p5)
+libflac-dev (>= 1.1.4)
+libdv4-dev | libdv-dev
+libgconf2-dev
+libxdamage-dev
+libxext-dev
+libxfixes-dev
+libxv-dev
+libxml2-dev
+libgtk2.0-dev (>= 2.8)
+libtag1-dev (>= 1.5)
+libwavpack-dev (>= 4.20)
+gstreamer-tools (>= 0.10.30)
+gstreamer0.10-plugins-base (>= 0.10.36)
+libsoup-gnome2.4-dev (>= 2.26)
+libpulse-dev (>= 1.0)
+libbz2-dev
+gstreamer0.10-doc
+gstreamer0.10-plugins-base-doc
+libjack-dev (>= 1:0.99.10)
