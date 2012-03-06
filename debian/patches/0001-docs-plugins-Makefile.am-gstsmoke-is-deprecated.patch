@@ -1,0 +1,34 @@
+From b0da4382794e0f9fcfd9f9c0bc94a10299286f0f Mon Sep 17 00:00:00 2001
+From: Olivier Naudan <o-naudan@ti.com>
+Date: Tue, 6 Mar 2012 09:49:33 -0500
+Subject: [PATCH] docs/plugins/Makefile.am: gstsmoke is deprecated
+
+---
+ docs/plugins/Makefile.am |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/docs/plugins/Makefile.am b/docs/plugins/Makefile.am
+index 57d81b0..3a6e445 100644
+--- a/docs/plugins/Makefile.am
++++ b/docs/plugins/Makefile.am
+@@ -69,8 +69,6 @@ EXTRA_HFILES = \
+ 	$(top_srcdir)/ext/jack/gstjackaudiosink.h \
+ 	$(top_srcdir)/ext/jpeg/gstjpegdec.h \
+ 	$(top_srcdir)/ext/jpeg/gstjpegenc.h \
+-	$(top_srcdir)/ext/jpeg/gstsmokedec.h \
+-	$(top_srcdir)/ext/jpeg/gstsmokeenc.h \
+ 	$(top_srcdir)/ext/libcaca/gstcacasink.h \
+ 	$(top_srcdir)/ext/libpng/gstpngdec.h \
+ 	$(top_srcdir)/ext/libpng/gstpngenc.h \
+@@ -209,6 +207,8 @@ EXTRA_HFILES = \
+ 	$(top_srcdir)/sys/v4l2/gstv4l2radio.h \
+ 	$(top_srcdir)/sys/waveform/gstwaveformsink.h \
+ 	$(top_srcdir)/sys/ximage/gstximagesrc.h
++# deprecated       $(top_srcdir)/ext/jpeg/gstsmokedec.h 
++# deprecated       $(top_srcdir)/ext/jpeg/gstsmokeenc.h 
+ 
+ # example code that needs to be converted to xml and placed in xml/
+ EXAMPLE_CFILES = \
+-- 
+1.7.9
+
