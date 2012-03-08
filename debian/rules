@@ -72,7 +72,7 @@ export OIL_CPU_FLAGS
 # Link special names to a template file.
 # still need "*.install" to be done by hand
 
-PLUGINS += gconf pulseaudio plugins-good
+PLUGINS += pulseaudio plugins-good
 CONFIG_ARGS :=
 ifeq ($(DEB_HOST_ARCH_OS),linux)
 PLUGINS +=
