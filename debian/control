@@ -1,4 +1,4 @@
-Source: gst-plugins-good1.0
+Source: gst-plugins-good1.4
 Section: libs
 Priority: optional
 Maintainer: Maintainers of GStreamer packages <pkg-gstreamer-maintainers@lists.alioth.debian.org>
@@ -11,11 +11,11 @@ Vcs-Git: git://anonscm.debian.org/pkg-gstreamer/gst-plugins-good1.0.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-gstreamer/gst-plugins-good1.0.git;a=summary
 Homepage: http://gstreamer.freedesktop.org/modules/gst-plugins-good.html
 
-Package: gstreamer1.0-plugins-good-doc
+Package: gstreamer1.4-plugins-good-doc
 Architecture: all
 Section: doc
-Depends: gstreamer1.0-doc,
-         gstreamer1.0-plugins-base-doc,
+Depends: gstreamer1.4-doc,
+         gstreamer1.4-plugins-base-doc,
          ${misc:Depends}
 Description: GStreamer documentation for plugins from the "good" set
  GStreamer is a streaming media framework, based on graphs of filters
@@ -28,7 +28,7 @@ Description: GStreamer documentation for plugins from the "good" set
  This package contains documentation for plugins from the "good" set,
  a set of good-quality plug-ins under the LGPL license.
 
-Package: gstreamer1.0-pulseaudio
+Package: gstreamer1.4-pulseaudio
 Architecture: any
 Multi-Arch: same
 Section: sound
@@ -52,17 +52,17 @@ Description: GStreamer plugin for PulseAudio
  This package contains the GStreamer plugin for PulseAudio, a sound server
  for POSIX and WIN32 systems.
 
-Package: gstreamer1.0-plugins-good
+Package: gstreamer1.4-plugins-good
 Architecture: any
 Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         gstreamer1.0-pulseaudio | gstreamer1.0-audiosink,
-         gstreamer1.0-plugins-base,
-Recommends: gstreamer1.0-x
-Replaces: gstreamer1.0-plugins-bad (<< 1.1.2)
-Breaks: gstreamer1.0-plugins-bad (<< 1.1.2)
+         gstreamer1.4-pulseaudio | gstreamer1.4-audiosink,
+         gstreamer1.4-plugins-base,
+Recommends: gstreamer1.4-x
+Replaces: gstreamer1.4-plugins-bad (<< 1.1.2)
+Breaks: gstreamer1.4-plugins-bad (<< 1.1.2)
 XB-GStreamer-Version: ${gstreamer:Version}
 XB-GStreamer-Elements: ${gstreamer:Elements}
 XB-GStreamer-URI-Sources: ${gstreamer:URISources}
@@ -81,16 +81,16 @@ Description: GStreamer plugins from the "good" set
  This package contains the GStreamer plugins from the "good" set, a set
  of good-quality plug-ins under the LGPL license.
 
-Package: gstreamer1.0-plugins-good-dbg
+Package: gstreamer1.4-plugins-good-dbg
 Architecture: any
 Multi-Arch: same
 Section: debug
 Priority: extra
-Depends: gstreamer1.0-plugins-good (= ${binary:Version}),
-         gstreamer1.0-pulseaudio (= ${binary:Version}),
+Depends: gstreamer1.4-plugins-good (= ${binary:Version}),
+         gstreamer1.4-pulseaudio (= ${binary:Version}),
          ${misc:Depends}
-Replaces: gstreamer1.0-plugins-bad (<< 1.1.2)
-Breaks: gstreamer1.0-plugins-bad (<< 1.1.2)
+Replaces: gstreamer1.4-plugins-bad (<< 1.1.2)
+Breaks: gstreamer1.4-plugins-bad (<< 1.1.2)
 Description: GStreamer plugins from the "good" set
  GStreamer is a streaming media framework, based on graphs of filters
  which operate on media data.  Applications using this library can do

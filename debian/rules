@@ -48,7 +48,7 @@ version=$(shell dpkg-parsechangelog | grep ^Version: | cut -d ' ' -f 2)
 # upstream version
 gst_version=$(shell echo $(version) | cut -d '-' -f 1)
 gst_major=1
-gst_minor=0
+gst_minor=4
 gst_abi=$(gst_major).$(gst_minor)
 # gstreamer library package names
 gst_lib=libgstreamer$(gst_abi)-0
@@ -89,14 +89,14 @@ VERSIONIZE= \
 	plugins-good-doc.install \
 
 ifeq ($(DEB_HOST_ARCH_OS),linux)
-1394 = debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/gstreamer-$(gst_abi)/libgst1394.so
-video4linux2 = debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/gstreamer-$(gst_abi)/libgstvideo4linux2.so
+1394 = debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/gstreamer-1.0/libgst1394.so
+video4linux2 = debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/gstreamer-1.0/libgstvideo4linux2.so
 endif
 
 ifeq ($(DEB_HOST_ARCH_OS),hurd)
 CONFIG_ARGS += --disable-oss4
 else
-oss4 = debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/gstreamer-$(gst_abi)/libgstoss4audio.so
+oss4 = debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/gstreamer-1.0/libgstoss4audio.so
 endif
 
 ifeq ($(DEB_HOST_ARCH_OS),linux)
@@ -135,7 +135,7 @@ pre-build::
 	for p in $(PLUGINS); do \
 		rm -f debian/$(gst_pkgname)-$$p.install; \
 		sed \
-			-e 's/@GST_ABI@/$(gst_abi)/g' \
+			-e 's/@GST_ABI@/1\.0/g' \
 			-e 's,@1394@,$(1394),g' \
 			-e 's,@video4linux2@,$(video4linux2),g' \
 			-e 's,@oss4@,$(oss4),g' \
