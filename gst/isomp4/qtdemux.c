@@ -737,12 +737,17 @@ gst_qtdemux_handle_src_query (GstPad * pad, GstObject * parent,
   GST_LOG_OBJECT (pad, "%s query", GST_QUERY_TYPE_NAME (query));
 
   switch (GST_QUERY_TYPE (query)) {
-    case GST_QUERY_POSITION:
-      if (GST_CLOCK_TIME_IS_VALID (qtdemux->segment.position)) {
+    case GST_QUERY_POSITION:{
+      GstFormat fmt;
+
+      gst_query_parse_position (query, &fmt, NULL);
+      if (fmt == GST_FORMAT_TIME
+          && GST_CLOCK_TIME_IS_VALID (qtdemux->segment.position)) {
         gst_query_set_position (query, GST_FORMAT_TIME,
             qtdemux->segment.position);
         res = TRUE;
       }
+    }
       break;
     case GST_QUERY_DURATION:{
       GstFormat fmt;
@@ -7485,8 +7490,10 @@ qtdemux_parse_trak (GstQTDemux * qtdemux, GNode * trak)
 
     stream->caps =
         qtdemux_video_caps (qtdemux, stream, fourcc, stsd_data, &codec);
-    if (G_UNLIKELY (!stream->caps))
+    if (G_UNLIKELY (!stream->caps)) {
+      g_free (palette_data);
       goto unknown_stream;
+    }
 
     if (codec) {
       list = gst_tag_list_new_empty ();
