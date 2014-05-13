@@ -12,6 +12,12 @@ DEB_DH_AUTORECONF_ARGS += --as-needed
 # make autoreconf not call autopoint since we ship a patch for po/Makefile.in.in
 export AUTOPOINT=true
 
+export PATH := /opt/gstreamer1.4/bin:$(PATH)
+export PKG_CONFIG_PATH=/opt/gstreamer1.4/lib/$(DEB_HOST_MULTIARCH)/pkgconfig
+GST_LD_LIBRARY_PATH=LD_LIBRARY_PATH=/opt/gstreamer1.4/lib/$(DEB_HOST_MULTIARCH)
+DEB_MAKE_ENVVARS += $(GST_LD_LIBRARY_PATH)
+DEB_SHLIBDEPS_INCLUDE += /opt/gstreamer1.4/lib/$(DEB_HOST_MULTIARCH)
+
 CFLAGS += -Wno-error
 CXXFLAGS += -Wno-error
 LDFLAGS += -Wl,-z,defs -Wl,-O1 -Wl,--as-needed
@@ -185,7 +191,7 @@ clean::
 	done
 
 common-binary-fixup-arch::
-	dh_gstscancodecs
+	$(GST_LD_LIBRARY_PATH) dh_gstscancodecs
 
 DEB_INSTALL_DOCS_ALL += debian/README.Debian NEWS
 
