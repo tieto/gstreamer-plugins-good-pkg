@@ -2299,8 +2299,9 @@ gst_rtp_jitter_buffer_chain (GstPad * pad, GstObject * parent,
     }
   }
 
-  GST_DEBUG_OBJECT (jitterbuffer, "Pushed packet #%d, now %d packets, head: %d",
-      seqnum, rtp_jitter_buffer_num_packets (priv->jbuf), head);
+  GST_DEBUG_OBJECT (jitterbuffer,
+      "Pushed packet #%d, now %d packets, head: %d, " "percent %d", seqnum,
+      rtp_jitter_buffer_num_packets (priv->jbuf), head, percent);
 
   msg = check_buffering_percent (jitterbuffer, percent);
 
@@ -2757,7 +2758,7 @@ do_lost_timeout (GstRtpJitterBuffer * jitterbuffer, TimerData * timer,
 {
   GstRtpJitterBufferPrivate *priv = jitterbuffer->priv;
   GstClockTime duration, timestamp;
-  guint seqnum, lost_packets, num_rtx_retry;
+  guint seqnum, lost_packets, num_rtx_retry, next_in_seqnum;
   gboolean late, head;
   GstEvent *event;
   RTPJitterBufferItem *item;
@@ -2780,6 +2781,12 @@ do_lost_timeout (GstRtpJitterBuffer * jitterbuffer, TimerData * timer,
 
   priv->num_late += lost_packets;
   priv->num_rtx_failed += num_rtx_retry;
+
+  next_in_seqnum = (seqnum + lost_packets) & 0xffff;
+
+  /* we now only accept seqnum bigger than this */
+  if (gst_rtp_buffer_compare_seqnum (priv->next_in_seqnum, next_in_seqnum) > 0)
+    priv->next_in_seqnum = next_in_seqnum;
 
   /* create paket lost event */
   event = gst_event_new_custom (GST_EVENT_CUSTOM_DOWNSTREAM,
@@ -2826,7 +2833,10 @@ do_deadline_timeout (GstRtpJitterBuffer * jitterbuffer, TimerData * timer,
 
   GST_INFO_OBJECT (jitterbuffer, "got deadline timeout");
 
-  priv->next_seqnum = timer->seqnum;
+  /* timer seqnum might have been obsoleted by caps seqnum-base,
+   * only mess with current ongoing seqnum if still unknown */
+  if (priv->next_seqnum == -1)
+    priv->next_seqnum = timer->seqnum;
   remove_timer (jitterbuffer, timer);
   JBUF_SIGNAL_EVENT (priv);
 

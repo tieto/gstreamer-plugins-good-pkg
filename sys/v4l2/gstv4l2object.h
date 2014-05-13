@@ -38,8 +38,7 @@ typedef struct _GstV4l2Xv GstV4l2Xv;
 #include <gstv4l2bufferpool.h>
 
 /* size of v4l2 buffer pool in streaming case */
-#define GST_V4L2_MAX_BUFFERS 16
-#define GST_V4L2_MIN_BUFFERS 1
+#define GST_V4L2_MIN_BUFFERS 2
 
 /* max frame width/height */
 #define GST_V4L2_MAX_SIZE (1<<15) /* 2^15 == 32768 */
@@ -52,11 +51,12 @@ GType gst_v4l2_io_mode_get_type (void);
 #define GST_V4L2_OBJECT(obj) (GstV4l2Object *)(obj)
 
 typedef enum {
-  GST_V4L2_IO_AUTO    = 0,
-  GST_V4L2_IO_RW      = 1,
-  GST_V4L2_IO_MMAP    = 2,
-  GST_V4L2_IO_USERPTR = 3,
-  GST_V4L2_IO_DMABUF  = 4
+  GST_V4L2_IO_AUTO          = 0,
+  GST_V4L2_IO_RW            = 1,
+  GST_V4L2_IO_MMAP          = 2,
+  GST_V4L2_IO_USERPTR       = 3,
+  GST_V4L2_IO_DMABUF        = 4,
+  GST_V4L2_IO_DMABUF_IMPORT = 5
 } GstV4l2IOMode;
 
 typedef gboolean  (*GstV4l2GetInOutFunction)  (GstV4l2Object * v4l2object, gint * input);
@@ -96,7 +96,13 @@ struct _GstV4l2Object {
 
   /* the current format */
   struct v4l2_fmtdesc *fmtdesc;
+  struct v4l2_format format;
   GstVideoInfo info;
+  GstVideoAlignment align;
+
+  /* Features */
+  gboolean need_video_meta;
+  gboolean has_alpha_component;
 
   /* only used if the device supports MPLANE
    * nb planes is meaning of v4l2 planes
@@ -104,11 +110,10 @@ struct _GstV4l2Object {
    */
   gint n_v4l2_planes;
 
-  guint32 bytesperline[GST_VIDEO_MAX_PLANES];
-  guint32 sizeimage;
+  /* We cache the frame duration if known */
   GstClockTime duration;
 
-  /* if the MPLANE device support both contiguous and non contiguous 
+  /* if the MPLANE device support both contiguous and non contiguous
    * it allows to select which one we want. But we prefered_non_contiguous
    * non contiguous mode.
    */
@@ -246,19 +251,19 @@ gboolean      gst_v4l2_object_unlock_stop (GstV4l2Object * v4l2object);
 
 gboolean      gst_v4l2_object_stop        (GstV4l2Object * v4l2object);
 
-
-gboolean      gst_v4l2_object_copy        (GstV4l2Object * v4l2object,
-                                           GstBuffer * dest, GstBuffer * src);
-
 GstCaps *     gst_v4l2_object_get_caps    (GstV4l2Object * v4l2object,
                                            GstCaps * filter);
 
-gboolean      gst_v4l2_object_setup_format (GstV4l2Object * v4l2object,
-                                            GstVideoInfo * info,
-                                            GstVideoAlignment * align);
+gboolean      gst_v4l2_object_acquire_format (GstV4l2Object * v4l2object,
+                                              GstVideoInfo * info);
+
+gboolean      gst_v4l2_object_set_crop    (GstV4l2Object * obj);
 
 gboolean      gst_v4l2_object_decide_allocation (GstV4l2Object * v4l2object,
                                                  GstQuery * query);
+
+gboolean      gst_v4l2_object_propose_allocation (GstV4l2Object * obj,
+                                                  GstQuery * query);
 
 GstStructure * gst_v4l2_object_v4l2fourcc_to_structure (guint32 fourcc);
 
