@@ -1,1 +1,1 @@
-debian/tmp/usr/lib/*/gstreamer-@GST_ABI@/libgstpulse.so
+debian/tmp/opt/gstreamer1.4/lib/*/gstreamer-@GST_ABI@/libgstpulse.so

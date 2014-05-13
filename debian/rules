@@ -89,14 +89,14 @@ VERSIONIZE= \
 	plugins-good-doc.install \
 
 ifeq ($(DEB_HOST_ARCH_OS),linux)
-1394 = debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/gstreamer-1.0/libgst1394.so
-video4linux2 = debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/gstreamer-1.0/libgstvideo4linux2.so
+1394 = debian/tmp/opt/gstreamer1.4/lib/$(DEB_HOST_MULTIARCH)/gstreamer-1.0/libgst1394.so
+video4linux2 = debian/tmp/opt/gstreamer1.4/lib/$(DEB_HOST_MULTIARCH)/gstreamer-1.0/libgstvideo4linux2.so
 endif
 
 ifeq ($(DEB_HOST_ARCH_OS),hurd)
 CONFIG_ARGS += --disable-oss4
 else
-oss4 = debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/gstreamer-1.0/libgstoss4audio.so
+oss4 = debian/tmp/opt/gstreamer1.4/lib/$(DEB_HOST_MULTIARCH)/gstreamer-1.0/libgstoss4audio.so
 endif
 
 ifeq ($(DEB_HOST_ARCH_OS),linux)
@@ -165,6 +165,7 @@ debian/control:: debian/control.in debian/build-deps debian/mk.control debian/ru
 		>$@
 
 DEB_CONFIGURE_EXTRA_FLAGS += \
+	--prefix=/opt/gstreamer1.4 \
 	--libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH) \
 	--disable-examples \
 	--enable-DEBUG \
