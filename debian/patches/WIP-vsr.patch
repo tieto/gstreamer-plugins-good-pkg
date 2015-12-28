@@ -1,0 +1,180 @@
+From 1cf85b2437666e294d64a0abebe39c6dc23adc05 Mon Sep 17 00:00:00 2001
+From: Jakub Adam <jakub.adam@ktknet.cz>
+Date: Wed, 4 Nov 2015 15:30:36 +0100
+Subject: [PATCH] WIP: vsr
+
+---
+ gst/rtpmanager/rtpsession.c | 136 ++++++++++++++++++++++++++++++++++++++++++++
+ gst/rtpmanager/rtpsource.h  |   2 +
+ 2 files changed, 138 insertions(+)
+
+diff --git a/gst/rtpmanager/rtpsession.c b/gst/rtpmanager/rtpsession.c
+index 879b1de..bd21a1f 100644
+--- a/gst/rtpmanager/rtpsession.c
++++ b/gst/rtpmanager/rtpsession.c
+@@ -3208,6 +3208,138 @@ reported:
+       GUINT_TO_POINTER (data->source->ssrc));
+ }
+ 
++#define VSR_HEADER_LEN 20
++
++static void
++vsr_write_header(guint8 *fci_data, guint16 request_id, guint32 src_id,
++				 guint8 vsr_entry_count)
++{
++	// Header + VSR entries
++	gint32 length = VSR_HEADER_LEN + (0x44 * vsr_entry_count);
++
++	GST_WRITE_UINT16_BE (fci_data, 0x1); // AFB Type
++	fci_data += 2;
++	GST_WRITE_UINT16_BE (fci_data, length);
++	fci_data += 2;
++	GST_WRITE_UINT32_BE(fci_data, src_id);
++	fci_data += 4;
++	GST_WRITE_UINT16_BE (fci_data, request_id); // Request ID
++	fci_data += 2;
++	GST_WRITE_UINT16_BE (fci_data, 0x0); // reserved
++	fci_data += 2;
++	GST_WRITE_UINT8(fci_data, 0x0); // version
++	++fci_data;
++	GST_WRITE_UINT8(fci_data, 0x0); // keyframe
++	++fci_data;
++	GST_WRITE_UINT8(fci_data, vsr_entry_count); // number of entries
++	++fci_data;
++	GST_WRITE_UINT8(fci_data, 0x44); // entry length
++	++fci_data;
++	GST_WRITE_UINT32_BE(fci_data, 0x0); // reserved
++	fci_data += 4;
++}
++
++static void
++vsr_write_entry(guint8 *fci_data)
++{
++	GST_WRITE_UINT8(fci_data, 99); // payload type (H264)
++	++fci_data;
++	GST_WRITE_UINT8(fci_data, 1); // UCConfig Mode
++	++fci_data;
++	GST_WRITE_UINT8(fci_data, 0); // flags
++	++fci_data;
++	GST_WRITE_UINT8(fci_data, 1); // aspect ratio
++	++fci_data;
++	GST_WRITE_UINT16_BE(fci_data, 432); // max width
++	fci_data += 2;
++	GST_WRITE_UINT16_BE(fci_data, 432); // max height
++	fci_data += 2;
++	GST_WRITE_UINT32_BE(fci_data, 350000); // min bitrate
++	fci_data += 4;
++	GST_WRITE_UINT32_BE(fci_data, 0); // reserve
++	fci_data += 4;
++	GST_WRITE_UINT32_BE(fci_data, 10000); // bit rate per level
++	fci_data += 4;
++
++	// Bit rate histogram
++	fci_data[0] = 0;
++	fci_data[1] = 1;
++	fci_data[2] = 0;
++	fci_data[3] = 0;
++	fci_data[4] = 0;
++	fci_data[5] = 0;
++	fci_data[6] = 0;
++	fci_data[7] = 0;
++	fci_data[8] = 0;
++	fci_data[9] = 0;
++	fci_data[10] = 0;
++	fci_data[11] = 0;
++	fci_data[12] = 0;
++	fci_data[13] = 0;
++	fci_data[14] = 0;
++	fci_data[15] = 0;
++	fci_data[16] = 0;
++	fci_data[17] = 0;
++	fci_data[18] = 0;
++	fci_data[19] = 0;
++	fci_data += 20;
++
++	GST_WRITE_UINT32_BE(fci_data, 4); // frame rate bit mask (15 FPS)
++	fci_data += 4;
++	GST_WRITE_UINT16_BE(fci_data, 0); // MUST instances
++	fci_data += 2;
++	GST_WRITE_UINT16_BE(fci_data, 1); // MAY instances
++	fci_data += 2;
++
++	// quality report histogram
++	fci_data[0] = 0;
++	fci_data[1] = 1;
++	fci_data[2] = 0;
++	fci_data[3] = 0;
++	fci_data[4] = 0;
++	fci_data[5] = 0;
++	fci_data[6] = 0;
++	fci_data[7] = 0;
++	fci_data[8] = 0;
++	fci_data[9] = 0;
++	fci_data[10] = 0;
++	fci_data[11] = 0;
++	fci_data[12] = 0;
++	fci_data[13] = 0;
++	fci_data[14] = 0;
++	fci_data[15] = 0;
++	fci_data += 16;
++
++	GST_WRITE_UINT32_BE(fci_data, 103680); // max number of pixels
++	fci_data += 4;
++}
++
++static void
++session_vsr(ReportData * data)
++{
++	GstRTCPPacket *packet = &data->packet;
++	RTPSource *own = data->source;
++	GstRTCPBuffer *rtcp = &data->rtcpbuf;
++	guint8 *fci_data;
++
++	GST_DEBUG ("send VSR for SSRC %08x", own->ssrc);
++	gst_rtcp_buffer_add_packet (rtcp, GST_RTCP_TYPE_PSFB, packet);
++	gst_rtcp_packet_fb_set_type (packet, GST_RTCP_PSFB_TYPE_AFB);
++	gst_rtcp_packet_fb_set_sender_ssrc (packet, data->source->ssrc);
++	gst_rtcp_packet_fb_set_media_ssrc (packet, 0xFFFFFFFE);
++
++	if (!gst_rtcp_packet_fb_set_fci_length (packet, (20 + 0x44) / 4)) {
++		return;
++	}
++
++	fci_data = gst_rtcp_packet_fb_get_fci (packet);
++	//vsr_write_header(fci_data, 1, 0xFFFFFFFF, 0);
++	vsr_write_header(fci_data, 1, 0xFFFFFFFE, 1);
++	fci_data += VSR_HEADER_LEN;
++
++	vsr_write_entry(fci_data);
++}
++
+ /* construct FIR */
+ static void
+ session_add_fir (const gchar * key, RTPSource * source, ReportData * data)
+@@ -3705,6 +3837,10 @@ generate_rtcp (const gchar * key, RTPSource * source, ReportData * data)
+   /* open packet */
+   session_start_rtcp (sess, data);
+ 
++  if (source->vsrs_sent++ < 5) {
++    session_vsr (data);
++  }
++
+   if (source->marked_bye) {
+     /* send BYE */
+     make_source_bye (sess, source, data);
+diff --git a/gst/rtpmanager/rtpsource.h b/gst/rtpmanager/rtpsource.h
+index 0f47fae..4eef444 100644
+--- a/gst/rtpmanager/rtpsource.h
++++ b/gst/rtpmanager/rtpsource.h
+@@ -148,6 +148,8 @@ struct _RTPSource {
+ 
+   GstStructure  *sdes;
+ 
++  guint         vsrs_sent;
++
+   gboolean      marked_bye;
+   gchar        *bye_reason;
+   gboolean      sent_bye;
+-- 
+2.6.4
+
